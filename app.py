@@ -16,7 +16,7 @@ def download_model(url, filename):
     else:
         st.error(f"Failed to download model. Status code: {response.status_code}")
 # 모델 파일 URL과 로컬 저장 파일명
-model_url = "https://github.com/your-username/your-repo/raw/main/final_model.h5"
+model_url = "https://github.com/kwon-sungjin/soccer-position/blob/793ba2618e2118823b4aa55d42f0fddf9a0bba16/final_model.h5"
 model_filename = "final_model.h5"
 
 # 모델 파일 다운로드
