@@ -1,14 +1,33 @@
-
+import requests
 import streamlit as st
 import numpy as np
 import cv2
 from tensorflow.keras.models import load_model
 from mtcnn import MTCNN
 import joblib
+import os
+
+def download_model(url, filename):
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(filename, 'wb') as f:
+            f.write(response.content)
+        st.success(f"Model downloaded successfully: {filename}")
+    else:
+        st.error(f"Failed to download model. Status code: {response.status_code}")
+# 모델 파일 URL과 로컬 저장 파일명
+model_url = "https://github.com/your-username/your-repo/raw/main/final_model.h5"
+model_filename = "final_model.h5"
+
+# 모델 파일 다운로드
+download_model(model_url, model_filename)
 
 # 모델 및 scaler 로드
-model_path = '/content/drive/MyDrive/final_model.h5'
-model = load_model(model_path)
+if os.path.exists(model_filename):
+    model = load_model(model_filename)
+    st.success("Model loaded successfully.")
+else:
+    st.error("Model file not found.")
 scaler = joblib.load('scaler.pkl')
 
 # 포지션 매핑 및 조언
